@@ -87,6 +87,12 @@ view separates exact vs. estimated shifts each month and totals the
 `margin_of_error` I recorded whenever I wasn't fully sure of the exact 
 amount — so the data stays honest about its own uncertainty instead 
 of presenting estimated figures as if they were exact.
+
+### [`tips_distribution.sql`](tips_distribution.sql) — `vw_tips_distribution`
+
+Breaks down total tips each month into the cash vs. card share, as a 
+percentage — useful for seeing how payment habits shift over time 
+(e.g. more card tips as cashless payments become more common).
 ## Visualization (Power BI)
 
 The three SQL views were connected to Power BI, where I built an 
@@ -109,11 +115,6 @@ The dashboard is available as a full interactive file:
 - **Income Breakdown** — a donut chart showing what share of total 
   income comes from salary vs. cash tips vs. card tips.
 
-### [`tips_distribution.sql`](tips_distribution.sql) — `vw_tips_distribution`
-
-Breaks down total tips each month into the cash vs. card share, as a 
-percentage — useful for seeing how payment habits shift over time 
-(e.g. more card tips as cashless payments become more common).
 
 ## Key Insights
 
