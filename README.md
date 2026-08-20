@@ -56,3 +56,40 @@ format, split across three linked sheets in
 This structure meant every shift could be traced across all three 
 sheets using `shift_id`, which made the SQL joins in the next step 
 straightforward.
+## Data Processing (SQL)
+
+Once the Excel data was structured with shared `shift_id` values, I 
+moved to SQL to join the sheets together and calculate the actual 
+metrics behind the raw numbers. Each script ends with a 
+`CREATE OR ALTER VIEW`, so the results could be queried directly and 
+plugged into Power BI as a clean data source.
+
+### [`monthly_summary.sql`](monthly_summary.sql) — `vw_monthly_income_summary`
+
+Combines hours, base salary, and tips into one monthly view, and 
+calculates the effective hourly rate (total income ÷ hours worked).
+
+The base hourly wage changed partway through the year — €7.00 before 
+2025-11-01, €7.50 from that date onward — so this is handled directly 
+in the query with a `CASE` statement based on the shift date, rather 
+than being a fixed number.
+
+| year_month | total_hours_worked | total_base_salary | total_monthly_income | effective_hourly_rate |
+|---|---|---|---|---|
+| 2025-06 | 162.25 | 1135.75 | 1800.42 | 11.10 |
+| 2025-12 | 156 | 1170 | 1933.72 | 12.40 |
+| 2026-06 | 143.5 | 1076.25 | 1760.18 | 12.27 |
+
+### [`cash_reliability.sql`](cash_reliability.sql) — `vw_cash_estimation_reliability`
+
+Cash tips were sometimes logged a few days late, from memory. This 
+view separates exact vs. estimated shifts each month and totals the 
+`margin_of_error` I recorded whenever I wasn't fully sure of the exact 
+amount — so the data stays honest about its own uncertainty instead 
+of presenting estimated figures as if they were exact.
+
+### [`tips_distribution.sql`](tips_distribution.sql) — `vw_tips_distribution`
+
+Breaks down total tips each month into the cash vs. card share, as a 
+percentage — useful for seeing how payment habits shift over time 
+(e.g. more card tips as cashless payments become more common).
