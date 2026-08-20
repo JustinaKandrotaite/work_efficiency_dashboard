@@ -87,9 +87,42 @@ view separates exact vs. estimated shifts each month and totals the
 `margin_of_error` I recorded whenever I wasn't fully sure of the exact 
 amount — so the data stays honest about its own uncertainty instead 
 of presenting estimated figures as if they were exact.
+## Visualization (Power BI)
+
+The three SQL views were connected to Power BI, where I built an 
+interactive dashboard with a month slicer at the top, so I can select 
+any single month (or several) and see the numbers update instantly.
+
+![Power BI Dashboard](Screenshot_PowerBI.png)
+
+The dashboard is available as a full interactive file: 
+[`Analyzing_Work_Efficiency.pbix`](Analyzing_Work_Efficiency.pbix) 
+(requires Power BI Desktop to open).
+
+**What each visual shows:**
+- **Total monthly income / Hours worked / Card tips tax / Cash Tips 
+  Margin of Error** — top-level KPI cards for the selected period.
+- **Effective hourly rate** — a combo chart comparing salary, cash 
+  tips, and card tips per month against the calculated effective 
+  hourly rate line, making it easy to see how tips lift real earnings 
+  above the base wage.
+- **Income Breakdown** — a donut chart showing what share of total 
+  income comes from salary vs. cash tips vs. card tips.
 
 ### [`tips_distribution.sql`](tips_distribution.sql) — `vw_tips_distribution`
 
 Breaks down total tips each month into the cash vs. card share, as a 
 percentage — useful for seeing how payment habits shift over time 
 (e.g. more card tips as cashless payments become more common).
+
+## Key Insights
+
+- The effective hourly rate ranged from €10.2 to €12.4 across the 
+  year — meaning tips consistently added at least €3–5 per hour on 
+  top of the €7.00/€7.50 base wage.
+- Salary makes up the majority of income (65.5%), but tips combined 
+  (cash + card) still account for over a third of total earnings 
+  (34.5%) — a meaningful share that base salary alone doesn't capture.
+- Cash tips (25.4%) remain notably larger than card tips (9.1%), 
+  though this is worth monitoring over time as cashless payments 
+  become more common.
